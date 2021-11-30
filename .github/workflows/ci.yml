@@ -1,12 +1,12 @@
-name: CI
+name: Terraform
 on:
   push:
     branches:
     - '*'
   pull_request:
 jobs:
-  ci:
-    name: CI
+  terraform:
+    name: Terraform
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,9 +15,15 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-      - name: Terraform Format
+      - name: Check formatting
         run: terraform fmt -check
-      - name: Terraform Init
+      - name: Initialize
         run: terraform init
-      - name: Terraform Validate
+      - name: Validate
         run: terraform validate
+      - name: Plan
+        if: github.event_name == 'pull_request'
+        run: terraform plan -input=false
+      - name: Apply
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve -input=false
