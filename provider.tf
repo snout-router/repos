@@ -1,3 +1,4 @@
 provider "github" {
-  owner = "snout-router"
+  owner        = "snout-router"
+  organization = "snout-router"
 }
