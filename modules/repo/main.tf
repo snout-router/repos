@@ -1,5 +1,5 @@
 resource "github_repository" "this" {
-  name         = var.name
+  name         = "snout-router/${var.name}"
   description  = var.description
   visibility   = "public"
   homepage_url = "https://snout.dev/${var.name}"
