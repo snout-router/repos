@@ -1,4 +1,6 @@
 resource "github_repository" "this" {
+  archive_on_destroy = true
+
   name         = var.name
   description  = var.description
   visibility   = "public"
