@@ -16,3 +16,13 @@ resource "github_repository" "this" {
     repository = "template-repo"
   }
 }
+
+data "github_team" "dependabot_reviewers" {
+  slug = "dependabot-reviewers"
+}
+
+resource "github_team_repository" "dependabot_reviewers" {
+  team_id    = data.github_team.dependabot_reviewers.id
+  repository = github_repository.this.name
+  permission = "maintain"
+}
