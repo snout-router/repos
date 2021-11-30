@@ -4,7 +4,7 @@ resource "github_repository" "this" {
   name         = var.name
   description  = var.description
   visibility   = "public"
-  homepage_url = var.has_website ? "https://snout.dev/${var.name}" : "https://snout.dev/"
+  homepage_url = var.has_website ? "https://snout.dev/${var.name}" : "https://snout.dev"
 
   has_projects = false
   has_wiki     = false
