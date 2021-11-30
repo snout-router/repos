@@ -4,7 +4,7 @@ resource "github_repository" "this" {
   name         = var.name
   description  = var.description
   visibility   = "public"
-  homepage_url = "https://snout.dev/${var.name}"
+  homepage_url = var.has_website ? "https://snout.dev/${var.name}" : "https://snout.dev/"
 
   has_projects = false
   has_wiki     = false
@@ -14,6 +14,15 @@ resource "github_repository" "this" {
   template {
     owner      = "snout-router"
     repository = "template-repo"
+  }
+
+  dynamic "pages" {
+    for_each = var.has_website ? [null] : []
+    content {
+      source {
+        branch = "gh-pages"
+      }
+    }
   }
 }
 
