@@ -1,9 +1,9 @@
 # Snout Repositories
 
-<!-- [![Build status][badge-build-image]][badge-build-link]
+[![Build status][badge-build-image]][badge-build-link]
 
 [badge-build-image]: https://img.shields.io/github/workflow/status/snout-router/repos/CI?style=for-the-badge
-[badge-build-link]: https://github.com/snout-router/repos/actions/workflows/ci.yml -->
+[badge-build-link]: https://github.com/snout-router/repos/actions/workflows/ci.yml
 
 <!-- - On the "Settings" page (https://github.com/snout-router/repos/settings):
   - Disable the "Wikis" feature
