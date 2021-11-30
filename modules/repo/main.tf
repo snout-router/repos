@@ -13,10 +13,4 @@ resource "github_repository" "this" {
     owner      = "snout-router"
     repository = "template-repo"
   }
-
-  pages {
-    source {
-      branch = "gh-pages"
-    }
-  }
 }
