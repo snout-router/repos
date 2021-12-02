@@ -38,6 +38,23 @@ module "repo_eslint_config_react" {
   description = "The ESLint configuration used by Snout repositories that use React"
 }
 
+module "repo_regexp" {
+  source      = "./modules/repo"
+  name        = "regexp"
+  description = "Utility functions for working with regular expressions"
+
+  topics = [
+    "escape",
+    "escaping",
+    "regex",
+    "regexp",
+    "regular-expression",
+    "regular-expressions",
+  ]
+
+  has_website = true
+}
+
 module "repo_tsconfig" {
   source      = "./modules/repo"
   name        = "tsconfig"
