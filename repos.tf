@@ -17,6 +17,35 @@ resource "github_repository" "dot_github" {
   vulnerability_alerts   = true
 }
 
+resource "github_repository" "snout_router_github_io" {
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  name         = "snout-router.github.io"
+  description  = "The Snout website"
+  homepage_url = "https://snout.dev"
+
+  has_issues   = false
+  has_projects = false
+  has_wiki     = false
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
+
+  template {
+    owner      = "snout-router"
+    repository = "template-repo"
+  }
+
+  pages {
+    cname = "snout.dev"
+    source {
+      branch = "main"
+    }
+  }
+}
+
 # Cookie-cutter repositories ===================================================
 
 module "repo_branding" {
