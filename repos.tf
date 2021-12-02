@@ -46,6 +46,23 @@ resource "github_repository" "snout_router_github_io" {
   }
 }
 
+resource "github_repository" "template_repo" {
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  name         = "template-repo"
+  description  = "A template repo for Snout TypeScript projects"
+  homepage_url = "https://snout.dev"
+
+  has_projects = false
+  has_wiki     = false
+  is_template  = true
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
+}
+
 # Cookie-cutter repositories ===================================================
 
 module "repo_branding" {
