@@ -1,3 +1,10 @@
+locals {
+  template = {
+    owner      = trimsuffix(github_repository.template_repo.full_name, "/${github_repository.template_repo.name}")
+    repository = github_repository.template_repo.name
+  }
+}
+
 # Unique repositories ==========================================================
 
 resource "github_repository" "dot_github" {
@@ -34,8 +41,8 @@ resource "github_repository" "snout_router_github_io" {
   vulnerability_alerts   = true
 
   template {
-    owner      = "snout-router"
-    repository = "template-repo"
+    owner      = local.template.owner
+    repository = local.template.repository
   }
 
   pages {
@@ -67,6 +74,7 @@ resource "github_repository" "template_repo" {
 
 module "repo_branding" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "branding"
   description = "Branding assets for Snout"
@@ -74,6 +82,7 @@ module "repo_branding" {
 
 module "repo_docusaurus_config" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "docusaurus-config"
   description = "The Docusaurus configuration used by Snout repositories"
@@ -84,12 +93,11 @@ module "repo_eslint_config" {
   primary_url = local.primary_url
   name        = "eslint-config"
   description = "The ESLint configuration used by Snout repositories"
-
-  from_template = false
 }
 
 module "repo_eslint_config_react" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "eslint-config-react"
   description = "The ESLint configuration used by Snout repositories that use React"
@@ -97,6 +105,7 @@ module "repo_eslint_config_react" {
 
 module "repo_jest_config" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "jest-config"
   description = "The Jest configuration used by Snout repositories"
@@ -104,6 +113,7 @@ module "repo_jest_config" {
 
 module "repo_regexp" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "regexp"
   description = "Utility functions for working with regular expressions"
@@ -122,6 +132,7 @@ module "repo_regexp" {
 
 module "repo_router_path" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "router-path"
   description = "A simple, light-weight, type-safe router path implementation"
@@ -138,6 +149,7 @@ module "repo_router_path" {
 
 module "repo_router_path_extras" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "router-path-extras"
   description = "Additional parameter types for Snout router path"
@@ -154,6 +166,7 @@ module "repo_router_path_extras" {
 
 module "repo_tsconfig" {
   source      = "./modules/repo"
+  template    = local.template
   primary_url = local.primary_url
   name        = "tsconfig"
   description = "The TypeScript configuration used by Snout repositories"

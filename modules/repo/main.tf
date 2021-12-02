@@ -16,10 +16,10 @@ resource "github_repository" "this" {
   vulnerability_alerts   = true
 
   dynamic "template" {
-    for_each = var.from_template ? [null] : []
+    for_each = var.template != null ? [null] : []
     content {
-      owner      = "snout-router"
-      repository = "template-repo"
+      owner      = var.template.owner
+      repository = var.template.repository
     }
   }
 

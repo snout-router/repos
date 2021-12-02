@@ -19,10 +19,10 @@ variable "topics" {
   default     = []
 }
 
-variable "from_template" {
-  description = "Whether the repo should be created from the standard snout-router template"
-  type        = bool
-  default     = true
+variable "template" {
+  description = "The template repo to use"
+  type        = object({ owner = string, repository = string })
+  default     = null
 }
 
 variable "has_website" {
