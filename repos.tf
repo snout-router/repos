@@ -70,6 +70,21 @@ module "repo_router_path" {
   has_website = true
 }
 
+module "repo_router_path_extras" {
+  source      = "./modules/repo"
+  name        = "router-path-extras"
+  description = "Additional parameter types for Snout router path"
+
+  topics = [
+    "path",
+    "route",
+    "router",
+    "routing",
+  ]
+
+  has_website = true
+}
+
 module "repo_tsconfig" {
   source      = "./modules/repo"
   name        = "tsconfig"
