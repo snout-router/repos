@@ -3,6 +3,7 @@ resource "github_repository" "this" {
 
   name         = var.name
   description  = var.description
+  topics       = var.topics
   visibility   = "public"
   homepage_url = var.has_website ? "https://snout.dev/${var.name}" : "https://snout.dev"
 

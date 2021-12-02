@@ -8,6 +8,12 @@ variable "description" {
   type        = string
 }
 
+variable "topics" {
+  description = "The repository topics"
+  type        = list(string)
+  default     = []
+}
+
 variable "from_template" {
   description = "Whether the repo should be created from the standard snout-router template"
   type        = bool
