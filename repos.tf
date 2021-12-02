@@ -12,6 +12,12 @@ module "repo_branding" {
   description = "Branding assets for Snout"
 }
 
+module "repo_docusaurus_config" {
+  source      = "./modules/repo"
+  name        = "docusaurus-config"
+  description = "The Docusaurus configuration used by Snout repositories"
+}
+
 module "repo_jest_config" {
   source      = "./modules/repo"
   name        = "jest-config"
