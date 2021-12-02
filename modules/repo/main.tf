@@ -10,10 +10,14 @@ resource "github_repository" "this" {
   has_wiki     = false
 
   delete_branch_on_merge = true
+  vulnerability_alerts   = true
 
-  template {
-    owner      = "snout-router"
-    repository = "template-repo"
+  dynamic "template" {
+    for_each = var.from_template ? [null] : []
+    content {
+      owner      = "snout-router"
+      repository = "template-repo"
+    }
   }
 
   dynamic "pages" {

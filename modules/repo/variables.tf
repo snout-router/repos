@@ -8,6 +8,12 @@ variable "description" {
   type        = string
 }
 
+variable "from_template" {
+  description = "Whether the repo should be created from the standard snout-router template"
+  type        = bool
+  default     = true
+}
+
 variable "has_website" {
   description = "Whether the repository has a website"
   type        = bool
