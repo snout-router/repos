@@ -1,6 +1,6 @@
 locals {
   template = {
-    owner      = trimsuffix(github_repository.template_repo.full_name, "/${github_repository.template_repo.name}")
+    owner      = local.owner
     repository = github_repository.template_repo.name
   }
 }
@@ -29,7 +29,7 @@ resource "github_repository" "snout_router_github_io" {
     prevent_destroy = true
   }
 
-  name         = "snout-router.github.io"
+  name         = "${local.owner}.github.io"
   description  = "The Snout website"
   homepage_url = local.primary_url
 

@@ -8,5 +8,5 @@ terraform {
 }
 
 provider "github" {
-  owner = "snout-router"
+  owner = local.owner
 }
