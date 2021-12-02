@@ -1,3 +1,24 @@
+# Unique repositories ==========================================================
+
+resource "github_repository" "dot_github" {
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  name         = ".github"
+  description  = "The community health files for the Snout organization"
+  homepage_url = "https://snout.dev"
+
+  has_issues   = false
+  has_projects = false
+  has_wiki     = false
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
+}
+
+# Cookie-cutter repositories ===================================================
+
 module "repo_branding" {
   source      = "./modules/repo"
   name        = "branding"
