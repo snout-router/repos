@@ -3,8 +3,6 @@ resource "github_repository" "this" {
     prevent_destroy = true
   }
 
-  archive_on_destroy = true
-
   name         = var.name
   description  = var.description
   topics       = var.topics
