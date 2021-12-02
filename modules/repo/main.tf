@@ -1,4 +1,8 @@
 resource "github_repository" "this" {
+  lifecycle {
+    prevent_destroy = true
+  }
+
   archive_on_destroy = true
 
   name         = var.name
