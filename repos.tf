@@ -6,6 +6,12 @@ module "repo_terraform_test" {
   has_website = true
 }
 
+module "repo_branding" {
+  source      = "./modules/repo"
+  name        = "branding"
+  description = "Branding assets for Snout"
+}
+
 module "repo_eslint_config" {
   source      = "./modules/repo"
   name        = "eslint-config"
