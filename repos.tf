@@ -24,7 +24,7 @@ resource "github_repository" "dot_github" {
   vulnerability_alerts   = true
 }
 
-resource "github_repository" "snout_router_github_io" {
+resource "github_repository" "dot_github_dot_io" {
   lifecycle {
     prevent_destroy = true
   }
