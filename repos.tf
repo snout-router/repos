@@ -10,12 +10,6 @@ module "repo_docusaurus_config" {
   description = "The Docusaurus configuration used by Snout repositories"
 }
 
-module "repo_jest_config" {
-  source      = "./modules/repo"
-  name        = "jest-config"
-  description = "The Jest configuration used by Snout repositories"
-}
-
 module "repo_eslint_config" {
   source      = "./modules/repo"
   name        = "eslint-config"
@@ -28,6 +22,12 @@ module "repo_eslint_config_react" {
   source      = "./modules/repo"
   name        = "eslint-config-react"
   description = "The ESLint configuration used by Snout repositories that use React"
+}
+
+module "repo_jest_config" {
+  source      = "./modules/repo"
+  name        = "jest-config"
+  description = "The Jest configuration used by Snout repositories"
 }
 
 module "repo_regexp" {
