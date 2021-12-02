@@ -12,6 +12,12 @@ module "repo_branding" {
   description = "Branding assets for Snout"
 }
 
+module "repo_jest_config" {
+  source      = "./modules/repo"
+  name        = "jest-config"
+  description = "The Jest configuration used by Snout repositories"
+}
+
 module "repo_eslint_config" {
   source      = "./modules/repo"
   name        = "eslint-config"
