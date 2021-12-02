@@ -1,3 +1,8 @@
+variable "primary_url" {
+  description = "The primary URL for websites"
+  type        = string
+}
+
 variable "name" {
   description = "The repository name"
   type        = string

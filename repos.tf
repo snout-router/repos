@@ -7,7 +7,7 @@ resource "github_repository" "dot_github" {
 
   name         = ".github"
   description  = "The community health files for the Snout organization"
-  homepage_url = "https://snout.dev"
+  homepage_url = local.primary_url
 
   has_issues   = false
   has_projects = false
@@ -24,7 +24,7 @@ resource "github_repository" "snout_router_github_io" {
 
   name         = "snout-router.github.io"
   description  = "The Snout website"
-  homepage_url = "https://snout.dev"
+  homepage_url = local.primary_url
 
   has_issues   = false
   has_projects = false
@@ -39,7 +39,7 @@ resource "github_repository" "snout_router_github_io" {
   }
 
   pages {
-    cname = "snout.dev"
+    cname = local.primary_domain
     source {
       branch = "main"
     }
@@ -53,7 +53,7 @@ resource "github_repository" "template_repo" {
 
   name         = "template-repo"
   description  = "A template repo for Snout TypeScript projects"
-  homepage_url = "https://snout.dev"
+  homepage_url = local.primary_url
 
   has_projects = false
   has_wiki     = false
@@ -67,18 +67,21 @@ resource "github_repository" "template_repo" {
 
 module "repo_branding" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "branding"
   description = "Branding assets for Snout"
 }
 
 module "repo_docusaurus_config" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "docusaurus-config"
   description = "The Docusaurus configuration used by Snout repositories"
 }
 
 module "repo_eslint_config" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "eslint-config"
   description = "The ESLint configuration used by Snout repositories"
 
@@ -87,18 +90,21 @@ module "repo_eslint_config" {
 
 module "repo_eslint_config_react" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "eslint-config-react"
   description = "The ESLint configuration used by Snout repositories that use React"
 }
 
 module "repo_jest_config" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "jest-config"
   description = "The Jest configuration used by Snout repositories"
 }
 
 module "repo_regexp" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "regexp"
   description = "Utility functions for working with regular expressions"
 
@@ -116,6 +122,7 @@ module "repo_regexp" {
 
 module "repo_router_path" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "router-path"
   description = "A simple, light-weight, type-safe router path implementation"
 
@@ -131,6 +138,7 @@ module "repo_router_path" {
 
 module "repo_router_path_extras" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "router-path-extras"
   description = "Additional parameter types for Snout router path"
 
@@ -146,6 +154,7 @@ module "repo_router_path_extras" {
 
 module "repo_tsconfig" {
   source      = "./modules/repo"
+  primary_url = local.primary_url
   name        = "tsconfig"
   description = "The TypeScript configuration used by Snout repositories"
 }
