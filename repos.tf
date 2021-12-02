@@ -13,3 +13,9 @@ module "repo_eslint_config" {
 
   from_template = false
 }
+
+module "repo_eslint_config_react" {
+  source      = "./modules/repo"
+  name        = "eslint-config-react"
+  description = "The ESLint configuration used by Snout repositories that use React"
+}
