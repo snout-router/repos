@@ -55,6 +55,21 @@ module "repo_regexp" {
   has_website = true
 }
 
+module "repo_router_path" {
+  source      = "./modules/repo"
+  name        = "router-path"
+  description = "A simple, light-weight, type-safe router path implementation"
+
+  topics = [
+    "path",
+    "route",
+    "router",
+    "routing",
+  ]
+
+  has_website = true
+}
+
 module "repo_tsconfig" {
   source      = "./modules/repo"
   name        = "tsconfig"
