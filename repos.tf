@@ -25,3 +25,9 @@ module "repo_eslint_config_react" {
   name        = "eslint-config-react"
   description = "The ESLint configuration used by Snout repositories that use React"
 }
+
+module "repo_tsconfig" {
+  source      = "./modules/repo"
+  name        = "tsconfig"
+  description = "The TypeScript configuration used by Snout repositories"
+}
