@@ -21,3 +21,12 @@ resource "github_repository" "template_repo" {
   delete_branch_on_merge = true
   vulnerability_alerts   = true
 }
+
+resource "github_repository_file" "template_repo_license" {
+  repository          = github_repository.template_repo.name
+  branch              = github_repository.template_repo.default_branch
+  file                = "LICENSE"
+  content             = local.license
+  commit_message      = "Update license"
+  overwrite_on_create = true
+}

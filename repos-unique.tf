@@ -15,6 +15,15 @@ resource "github_repository" "dot_github" {
   vulnerability_alerts   = true
 }
 
+resource "github_repository_file" "dot_github_license" {
+  repository          = github_repository.dot_github.name
+  branch              = github_repository.dot_github.default_branch
+  file                = "LICENSE"
+  content             = local.license
+  commit_message      = "Update license"
+  overwrite_on_create = true
+}
+
 resource "github_repository" "dot_github_dot_io" {
   lifecycle {
     prevent_destroy = true
@@ -42,4 +51,13 @@ resource "github_repository" "dot_github_dot_io" {
       branch = "main"
     }
   }
+}
+
+resource "github_repository_file" "dot_github_dot_io_license" {
+  repository          = github_repository.dot_github_dot_io.name
+  branch              = github_repository.dot_github_dot_io.default_branch
+  file                = "LICENSE"
+  content             = local.license
+  commit_message      = "Update license"
+  overwrite_on_create = true
 }

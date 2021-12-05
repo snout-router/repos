@@ -1,5 +1,6 @@
 module "repo_branding" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "branding"
@@ -8,6 +9,7 @@ module "repo_branding" {
 
 module "repo_docusaurus_config" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "docusaurus-config"
@@ -16,6 +18,7 @@ module "repo_docusaurus_config" {
 
 module "repo_eslint_config" {
   source      = "./modules/repo"
+  license     = local.license
   primary_url = local.primary_url
   name        = "eslint-config"
   description = "The ESLint configuration used by Snout repositories"
@@ -23,6 +26,7 @@ module "repo_eslint_config" {
 
 module "repo_eslint_config_react" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "eslint-config-react"
@@ -31,6 +35,7 @@ module "repo_eslint_config_react" {
 
 module "repo_jest_config" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "jest-config"
@@ -39,6 +44,7 @@ module "repo_jest_config" {
 
 module "repo_regexp" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "regexp"
@@ -58,6 +64,7 @@ module "repo_regexp" {
 
 module "repo_router_path" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "router-path"
@@ -75,6 +82,7 @@ module "repo_router_path" {
 
 module "repo_router_path_extras" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "router-path-extras"
@@ -92,6 +100,7 @@ module "repo_router_path_extras" {
 
 module "repo_tsconfig" {
   source      = "./modules/repo"
+  license     = local.license
   template    = local.template
   primary_url = local.primary_url
   name        = "tsconfig"

@@ -1,3 +1,8 @@
+variable "license" {
+  description = "The repository license"
+  type        = string
+}
+
 variable "primary_url" {
   description = "The primary URL for websites"
   type        = string
