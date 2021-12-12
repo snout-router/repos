@@ -1,7 +1,5 @@
 resource "github_repository" "dot_github" {
-  lifecycle {
-    prevent_destroy = true
-  }
+  archive_on_destroy = true
 
   name         = ".github"
   description  = "The community health files for the Snout organization"
@@ -25,9 +23,7 @@ resource "github_repository_file" "dot_github_license" {
 }
 
 resource "github_repository" "dot_github_dot_io" {
-  lifecycle {
-    prevent_destroy = true
-  }
+  archive_on_destroy = true
 
   name         = "${local.owner}.github.io"
   description  = "The Snout website"

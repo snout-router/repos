@@ -6,9 +6,7 @@ locals {
 }
 
 resource "github_repository" "template_repo" {
-  lifecycle {
-    prevent_destroy = true
-  }
+  archive_on_destroy = true
 
   name         = "template-repo"
   description  = "A template repo for Snout TypeScript projects"
