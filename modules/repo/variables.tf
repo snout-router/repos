@@ -30,8 +30,20 @@ variable "template" {
   default     = null
 }
 
+variable "has_ci" {
+  description = "Whether the repository has a CI setup"
+  type        = bool
+  default     = true
+}
+
 variable "has_website" {
   description = "Whether the repository has a website"
   type        = bool
   default     = false
+}
+
+variable "should_publish_website" {
+  description = "Whether the website should be published via GHA"
+  type        = bool
+  default     = true
 }

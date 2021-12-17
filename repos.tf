@@ -5,6 +5,8 @@ module "repo_branding" {
   primary_url = local.primary_url
   name        = "branding"
   description = "Branding assets for Snout"
+
+  has_ci = false
 }
 
 module "repo_docusaurus_config" {
@@ -14,6 +16,8 @@ module "repo_docusaurus_config" {
   primary_url = local.primary_url
   name        = "docusaurus-config"
   description = "The Docusaurus configuration used by Snout repositories"
+
+  has_ci = false
 }
 
 module "repo_eslint_config" {
@@ -22,6 +26,8 @@ module "repo_eslint_config" {
   primary_url = local.primary_url
   name        = "eslint-config"
   description = "The ESLint configuration used by Snout repositories"
+
+  has_ci = false
 }
 
 module "repo_eslint_config_react" {
@@ -31,6 +37,8 @@ module "repo_eslint_config_react" {
   primary_url = local.primary_url
   name        = "eslint-config-react"
   description = "The ESLint configuration used by Snout repositories that use React"
+
+  has_ci = false
 }
 
 module "repo_jest_config" {
@@ -40,6 +48,8 @@ module "repo_jest_config" {
   primary_url = local.primary_url
   name        = "jest-config"
   description = "The Jest configuration used by Snout repositories"
+
+  has_ci = false
 }
 
 module "repo_regexp" {
@@ -95,7 +105,8 @@ module "repo_router_path_extras" {
     "routing",
   ]
 
-  has_website = true
+  has_website            = true
+  should_publish_website = false
 }
 
 module "repo_tsconfig" {
@@ -105,4 +116,6 @@ module "repo_tsconfig" {
   primary_url = local.primary_url
   name        = "tsconfig"
   description = "The TypeScript configuration used by Snout repositories"
+
+  has_ci = false
 }
