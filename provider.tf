@@ -9,4 +9,5 @@ terraform {
 
 provider "github" {
   owner = local.owner
+  app_auth {}
 }
