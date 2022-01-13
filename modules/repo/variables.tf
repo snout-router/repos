@@ -1,3 +1,13 @@
+variable "commit_author" {
+  description = "The author name to use when committing files"
+  type        = string
+}
+
+variable "commit_email" {
+  description = "The email address to use when committing files"
+  type        = string
+}
+
 variable "license" {
   description = "The repository license"
   type        = string

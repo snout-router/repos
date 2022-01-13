@@ -1,6 +1,8 @@
 resource "github_repository_file" "dot_github_workflows_ci_pr_size_yml" {
   count = var.has_ci ? 1 : 0
 
+  commit_author       = var.commit_author
+  commit_email        = var.commit_email
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/ci-pr-size.yml"
@@ -12,6 +14,8 @@ resource "github_repository_file" "dot_github_workflows_ci_pr_size_yml" {
 resource "github_repository_file" "dot_github_workflows_ci_scheduled_yml" {
   count = var.has_ci ? 1 : 0
 
+  commit_author       = var.commit_author
+  commit_email        = var.commit_email
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/ci-scheduled.yml"
@@ -23,6 +27,8 @@ resource "github_repository_file" "dot_github_workflows_ci_scheduled_yml" {
 resource "github_repository_file" "dot_github_workflows_ci_website_yml" {
   count = var.has_website && var.should_publish_website ? 1 : 0
 
+  commit_author       = var.commit_author
+  commit_email        = var.commit_email
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/ci-website.yml"
@@ -34,6 +40,8 @@ resource "github_repository_file" "dot_github_workflows_ci_website_yml" {
 resource "github_repository_file" "dot_github_workflows_ci_yml" {
   count = var.has_ci ? 1 : 0
 
+  commit_author       = var.commit_author
+  commit_email        = var.commit_email
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/ci.yml"
@@ -45,6 +53,8 @@ resource "github_repository_file" "dot_github_workflows_ci_yml" {
 resource "github_repository_file" "dot_github_workflows_publish_package_yml" {
   count = 1
 
+  commit_author       = var.commit_author
+  commit_email        = var.commit_email
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/publish-package.yml"
@@ -56,6 +66,8 @@ resource "github_repository_file" "dot_github_workflows_publish_package_yml" {
 resource "github_repository_file" "dot_github_workflows_publish_release_yml" {
   count = 1
 
+  commit_author       = var.commit_author
+  commit_email        = var.commit_email
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/publish-release.yml"
@@ -67,6 +79,8 @@ resource "github_repository_file" "dot_github_workflows_publish_release_yml" {
 resource "github_repository_file" "dot_github_workflows_publish_website_yml" {
   count = var.has_website && var.should_publish_website ? 1 : 0
 
+  commit_author       = var.commit_author
+  commit_email        = var.commit_email
   repository          = github_repository.this.name
   branch              = github_repository.this.default_branch
   file                = ".github/workflows/publish-website.yml"

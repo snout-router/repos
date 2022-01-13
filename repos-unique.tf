@@ -14,6 +14,8 @@ resource "github_repository" "dot_github" {
 }
 
 resource "github_repository_file" "dot_github_license" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.dot_github.name
   branch              = github_repository.dot_github.default_branch
   file                = "LICENSE"
@@ -50,6 +52,8 @@ resource "github_repository" "dot_github_dot_io" {
 }
 
 resource "github_repository_file" "dot_github_dot_io_license" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.dot_github_dot_io.name
   branch              = github_repository.dot_github_dot_io.default_branch
   file                = "LICENSE"
