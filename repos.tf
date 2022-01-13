@@ -119,14 +119,3 @@ module "repo_tsconfig" {
 
   has_ci = false
 }
-
-module "repo_test_repo" {
-  source      = "./modules/repo"
-  license     = local.license
-  template    = local.template
-  primary_url = local.primary_url
-  name        = "test-repo"
-  description = "A repo for testing Terraform repo management"
-
-  has_ci = false
-}
