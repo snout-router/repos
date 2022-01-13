@@ -22,11 +22,11 @@ jobs:
     - name: Validate
       run: terraform validate
     - name: Plan
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
       id: plan
       run: terraform plan -input=false -no-color
     - name: Publish Plan
-      if: github.event_name == 'pull_request'
+      if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
       uses: actions/github-script@v5
       env:
         PLAN: ${{ steps.plan.outputs.stdout }}
