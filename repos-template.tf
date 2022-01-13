@@ -21,6 +21,8 @@ resource "github_repository" "template_repo" {
 }
 
 resource "github_repository_file" "template_repo_license" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = "LICENSE"
@@ -30,6 +32,8 @@ resource "github_repository_file" "template_repo_license" {
 }
 
 resource "github_repository_file" "template_repo_dot_github_workflows_ci_pr_size_yml" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = ".github/workflows/ci-pr-size.yml"
@@ -39,6 +43,8 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_pr_size
 }
 
 resource "github_repository_file" "template_repo_dot_github_workflows_ci_scheduled_yml" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = ".github/workflows/ci-scheduled.yml"
@@ -48,6 +54,8 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_schedul
 }
 
 resource "github_repository_file" "template_repo_dot_github_workflows_ci_website_yml" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = ".github/workflows/ci-website.yml"
@@ -57,6 +65,8 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_website
 }
 
 resource "github_repository_file" "template_repo_dot_github_workflows_ci_yml" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = ".github/workflows/ci.yml"
@@ -66,6 +76,8 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_yml" {
 }
 
 resource "github_repository_file" "template_repo_dot_github_workflows_publish_package_yml" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = ".github/workflows/publish-package.yml"
@@ -75,6 +87,8 @@ resource "github_repository_file" "template_repo_dot_github_workflows_publish_pa
 }
 
 resource "github_repository_file" "template_repo_dot_github_workflows_publish_release_yml" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = ".github/workflows/publish-release.yml"
@@ -84,6 +98,8 @@ resource "github_repository_file" "template_repo_dot_github_workflows_publish_re
 }
 
 resource "github_repository_file" "template_repo_dot_github_workflows_publish_website_yml" {
+  commit_author       = local.commit_author
+  commit_email        = local.commit_email
   repository          = github_repository.template_repo.name
   branch              = github_repository.template_repo.default_branch
   file                = ".github/workflows/publish-website.yml"
