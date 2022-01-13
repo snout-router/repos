@@ -31,7 +31,6 @@ jobs:
       env:
         PLAN: ${{ steps.plan.outputs.stdout }}
       with:
-        github-token: ${{ inputs.GITHUB_TOKEN }}
         script: |
           const output = `
           **📖 Terraform planning succeded**
