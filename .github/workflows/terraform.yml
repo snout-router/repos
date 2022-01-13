@@ -18,8 +18,10 @@ jobs:
     - name: Check formatting
       run: terraform fmt -check
     - name: Initialize
+      if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
       run: terraform init
     - name: Validate
+      if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
       run: terraform validate
     - name: Plan
       if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
