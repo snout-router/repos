@@ -137,3 +137,16 @@ module "repo_tsconfig" {
 
   has_ci = false
 }
+
+module "repo_test_repo_c" {
+  source        = "./modules/repo"
+  commit_author = local.commit_author
+  commit_email  = local.commit_email
+  license       = local.license
+  template      = local.template
+  primary_url   = local.primary_url
+  name          = "test-repo-c"
+  description   = "A repo for testing Terraform repo management, brought to you by @jmalloc"
+
+  has_ci = false
+}
