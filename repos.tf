@@ -137,28 +137,3 @@ module "repo_tsconfig" {
 
   has_ci = false
 }
-
-module "repo_test_repo_b" {
-  source        = "./modules/repo"
-  commit_author = local.commit_author
-  commit_email  = local.commit_email
-  license       = local.license
-  template      = local.template
-  primary_url   = local.primary_url
-  name          = "test-repo-b"
-  description   = "A repo for testing Terraform repo management"
-
-  has_ci = false
-}
-
-module "repo_test_non_template_repo_b" {
-  source        = "./modules/repo"
-  commit_author = local.commit_author
-  commit_email  = local.commit_email
-  license       = local.license
-  primary_url   = local.primary_url
-  name          = "test-non-template-repo-b"
-  description   = "A repo for testing Terraform repo management"
-
-  has_ci = false
-}
