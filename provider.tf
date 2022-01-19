@@ -8,7 +8,7 @@ terraform {
 }
 
 provider "github" {
-  owner = local.owner
+  owner = module.constants.org
 
   app_auth {
     id              = var.GITHUB_APP_ID

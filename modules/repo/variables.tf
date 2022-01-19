@@ -1,21 +1,5 @@
-variable "commit_author" {
-  description = "The author name to use when committing files"
-  type        = string
-}
-
-variable "commit_email" {
-  description = "The email address to use when committing files"
-  type        = string
-}
-
-variable "license" {
-  description = "The repository license"
-  type        = string
-}
-
-variable "primary_url" {
-  description = "The primary URL for websites"
-  type        = string
+module "constants" {
+  source = "../constants"
 }
 
 variable "name" {
