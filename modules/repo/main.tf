@@ -7,6 +7,7 @@ resource "github_repository" "this" {
   visibility   = "public"
   homepage_url = var.has_website ? "${var.primary_url}/${var.name}" : var.primary_url
 
+  auto_init    = true
   has_issues   = true
   has_projects = false
   has_wiki     = false
