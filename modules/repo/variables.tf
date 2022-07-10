@@ -30,10 +30,10 @@ variable "template" {
   default     = null
 }
 
-variable "has_ci" {
-  description = "Whether the repository has a CI setup"
+variable "has_size_limit" {
+  description = "Whether the repository uses size-limit"
   type        = bool
-  default     = true
+  default     = false
 }
 
 variable "has_website" {

@@ -5,8 +5,6 @@ module "repo_branding" {
   description  = "Branding assets for Snout"
   homepage_url = "https://github.com/snout-router/branding/releases/latest/download/snout.branding.zip"
 
-  has_ci = false
-
   release_make_target = "release"
 }
 
@@ -15,16 +13,12 @@ module "repo_docusaurus_config" {
   template    = local.template
   name        = "docusaurus-config"
   description = "The Docusaurus configuration used by Snout repositories"
-
-  has_ci = false
 }
 
 module "repo_eslint_config" {
   source      = "./modules/repo"
   name        = "eslint-config"
   description = "The ESLint configuration used by Snout repositories"
-
-  has_ci = false
 }
 
 module "repo_eslint_config_react" {
@@ -32,8 +26,6 @@ module "repo_eslint_config_react" {
   template    = local.template
   name        = "eslint-config-react"
   description = "The ESLint configuration used by Snout repositories that use React"
-
-  has_ci = false
 }
 
 module "repo_jest_config" {
@@ -41,8 +33,6 @@ module "repo_jest_config" {
   template    = local.template
   name        = "jest-config"
   description = "The Jest configuration used by Snout repositories"
-
-  has_ci = false
 }
 
 module "repo_regexp" {
@@ -60,7 +50,8 @@ module "repo_regexp" {
     "regular-expressions",
   ]
 
-  has_website = true
+  has_size_limit = true
+  has_website    = true
 }
 
 module "repo_router_path" {
@@ -76,7 +67,8 @@ module "repo_router_path" {
     "routing",
   ]
 
-  has_website = true
+  has_size_limit = true
+  has_website    = true
 }
 
 module "repo_router_path_extras" {
@@ -92,6 +84,7 @@ module "repo_router_path_extras" {
     "routing",
   ]
 
+  has_size_limit         = true
   has_website            = true
   should_publish_website = false
 }
@@ -101,6 +94,4 @@ module "repo_tsconfig" {
   template    = local.template
   name        = "tsconfig"
   description = "The TypeScript configuration used by Snout repositories"
-
-  has_ci = false
 }

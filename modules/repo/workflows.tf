@@ -1,5 +1,5 @@
 resource "github_repository_file" "dot_github_workflows_ci_pr_size_yml" {
-  count = var.has_ci ? 1 : 0
+  count = var.has_size_limit ? 1 : 0
 
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
@@ -13,7 +13,7 @@ resource "github_repository_file" "dot_github_workflows_ci_pr_size_yml" {
 }
 
 resource "github_repository_file" "dot_github_workflows_ci_scheduled_yml" {
-  count = var.has_ci ? 1 : 0
+  count = 1
 
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
@@ -41,7 +41,7 @@ resource "github_repository_file" "dot_github_workflows_ci_website_yml" {
 }
 
 resource "github_repository_file" "dot_github_workflows_ci_yml" {
-  count = var.has_ci ? 1 : 0
+  count = 1
 
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
