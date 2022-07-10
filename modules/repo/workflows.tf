@@ -78,9 +78,9 @@ resource "github_repository_file" "dot_github_workflows_publish_release_yml" {
   commit_message      = "Update \"Publish release\" GHA workflow"
   overwrite_on_create = true
 
-  content = chomp(templatefile("dot-github/workflows/publish-release.yml", {
+  content = trimsuffix(templatefile("dot-github/workflows/publish-release.yml", {
     make_target = var.release_make_target
-  }))
+  }), "\n")
 }
 
 resource "github_repository_file" "dot_github_workflows_publish_website_yml" {
