@@ -8,3 +8,5 @@ jobs:
   publish:
     name: Snout
     uses: snout-router/.github/.github/workflows/publish-release.yml@main
+    with:
+      make_target: ${yamlencode(make_target)}

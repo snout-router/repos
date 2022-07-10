@@ -5,6 +5,8 @@ module "repo_branding" {
   description = "Branding assets for Snout"
 
   has_ci = false
+
+  release_make_target = "release"
 }
 
 module "repo_docusaurus_config" {
