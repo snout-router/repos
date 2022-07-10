@@ -18,6 +18,12 @@ variable "topics" {
   default     = []
 }
 
+variable "homepage_url" {
+  description = "The repository homepage URL"
+  type        = string
+  default     = ""
+}
+
 variable "template" {
   description = "The template repo to use"
   type        = object({ owner = string, repository = string })

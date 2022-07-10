@@ -1,8 +1,9 @@
 module "repo_branding" {
-  source      = "./modules/repo"
-  template    = local.template
-  name        = "branding"
-  description = "Branding assets for Snout"
+  source       = "./modules/repo"
+  template     = local.template
+  name         = "branding"
+  description  = "Branding assets for Snout"
+  homepage_url = "https://github.com/snout-router/branding/releases/latest/download/snout.branding.zip"
 
   has_ci = false
 

@@ -1,11 +1,15 @@
 resource "github_repository" "this" {
   archive_on_destroy = true
 
-  name         = var.name
-  description  = var.description
-  topics       = var.topics
-  visibility   = "public"
-  homepage_url = var.has_website ? "${module.constants.primary_url}/${var.name}" : module.constants.primary_url
+  name        = var.name
+  description = var.description
+  topics      = var.topics
+  visibility  = "public"
+
+  homepage_url = coalesce(
+    var.homepage_url,
+    var.has_website ? "${module.constants.primary_url}/${var.name}" : module.constants.primary_url,
+  )
 
   auto_init    = true
   has_issues   = true
