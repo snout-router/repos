@@ -20,6 +20,21 @@ resource "github_repository" "template_repo" {
   vulnerability_alerts   = true
 }
 
+data "github_repository" "template_repo" {
+  depends_on = [
+    github_repository.template_repo
+  ]
+
+  name = "template-repo"
+}
+
+resource "github_branch_protection" "template_repo_default_branch" {
+  repository_id = github_repository.template_repo.node_id
+
+  pattern        = data.github_repository.template_repo.default_branch
+  enforce_admins = true
+}
+
 resource "github_repository_file" "template_repo_license" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email

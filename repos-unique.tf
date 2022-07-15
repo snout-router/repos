@@ -13,6 +13,21 @@ resource "github_repository" "dot_github" {
   vulnerability_alerts   = true
 }
 
+data "github_repository" "dot_github" {
+  depends_on = [
+    github_repository.dot_github
+  ]
+
+  name = ".github"
+}
+
+resource "github_branch_protection" "dot_github_default_branch" {
+  repository_id = github_repository.dot_github.node_id
+
+  pattern        = data.github_repository.dot_github.default_branch
+  enforce_admins = true
+}
+
 resource "github_repository_file" "dot_github_license" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
@@ -49,6 +64,21 @@ resource "github_repository" "dot_github_dot_io" {
       branch = "main"
     }
   }
+}
+
+data "github_repository" "dot_github_dot_io" {
+  depends_on = [
+    github_repository.dot_github_dot_io
+  ]
+
+  name = "${module.constants.org}.github.io"
+}
+
+resource "github_branch_protection" "dot_github_dot_io_default_branch" {
+  repository_id = github_repository.dot_github_dot_io.node_id
+
+  pattern        = data.github_repository.dot_github_dot_io.default_branch
+  enforce_admins = true
 }
 
 resource "github_repository_file" "dot_github_dot_io_license" {

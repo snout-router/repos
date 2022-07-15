@@ -37,6 +37,21 @@ resource "github_repository" "this" {
   }
 }
 
+data "github_repository" "this" {
+  depends_on = [
+    github_repository.this
+  ]
+
+  name = var.name
+}
+
+resource "github_branch_protection" "default_branch" {
+  repository_id = github_repository.this.node_id
+
+  pattern        = data.github_repository.this.default_branch
+  enforce_admins = true
+}
+
 data "github_team" "dependabot_reviewers" {
   slug = "dependabot-reviewers"
 }
