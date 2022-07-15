@@ -6,3 +6,9 @@ updates:
       interval: daily
     reviewers:
       - snout-router/dependabot-reviewers
+  - package-ecosystem: terraform
+    directory: /
+    schedule:
+      interval: daily
+    reviewers:
+      - snout-router/dependabot-reviewers
