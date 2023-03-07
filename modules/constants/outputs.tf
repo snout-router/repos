@@ -4,7 +4,7 @@ locals {
 }
 
 output "committer" {
-  description = "The committer details to use when comitting files to GitHub"
+  description = "The committer details to use when committing files to GitHub"
   value = {
     name  = "snout-router-repo-manager[bot]"
     email = "97502368+snout-router-repo-manager[bot]@users.noreply.github.com"
