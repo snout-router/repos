@@ -38,11 +38,7 @@ resource "github_repository" "this" {
 }
 
 data "github_repository" "this" {
-  depends_on = [
-    github_repository.this
-  ]
-
-  name = var.name
+  name = github_repository.this.name
 }
 
 resource "github_branch_protection" "default_branch" {
