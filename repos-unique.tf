@@ -14,11 +14,7 @@ resource "github_repository" "dot_github" {
 }
 
 data "github_repository" "dot_github" {
-  depends_on = [
-    github_repository.dot_github
-  ]
-
-  name = ".github"
+  name = github_repository.dot_github.name
 }
 
 resource "github_branch_protection" "dot_github_default_branch" {
@@ -32,7 +28,7 @@ resource "github_repository_file" "dot_github_license" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.dot_github.name
-  branch              = github_repository.dot_github.default_branch
+  branch              = data.github_repository.dot_github.default_branch
   file                = "LICENSE"
   content             = module.constants.license
   commit_message      = "Update license"
@@ -67,11 +63,7 @@ resource "github_repository" "dot_github_dot_io" {
 }
 
 data "github_repository" "dot_github_dot_io" {
-  depends_on = [
-    github_repository.dot_github_dot_io
-  ]
-
-  name = "${module.constants.org}.github.io"
+  name = github_repository.dot_github_dot_io.name
 }
 
 resource "github_branch_protection" "dot_github_dot_io_default_branch" {
@@ -85,7 +77,7 @@ resource "github_repository_file" "dot_github_dot_io_license" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.dot_github_dot_io.name
-  branch              = github_repository.dot_github_dot_io.default_branch
+  branch              = data.github_repository.dot_github_dot_io.default_branch
   file                = "LICENSE"
   content             = module.constants.license
   commit_message      = "Update license"
