@@ -32,7 +32,6 @@ resource "github_repository_file" "dot_github_license" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.dot_github.name
-  branch              = data.github_repository.dot_github.default_branch
   file                = "LICENSE"
   content             = module.constants.license
   commit_message      = "Update license"
@@ -85,7 +84,6 @@ resource "github_repository_file" "dot_github_dot_io_license" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.dot_github_dot_io.name
-  branch              = data.github_repository.dot_github_dot_io.default_branch
   file                = "LICENSE"
   content             = module.constants.license
   commit_message      = "Update license"

@@ -39,7 +39,6 @@ resource "github_repository_file" "template_repo_license" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = "LICENSE"
   content             = module.constants.license
   commit_message      = "Update license"
@@ -50,7 +49,6 @@ resource "github_repository_file" "template_repo_dot_github_dependabot_yml" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/dependabot.yml"
   commit_message      = "Update Dependabot configuration"
   overwrite_on_create = true
@@ -67,7 +65,6 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_pr_size
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/workflows/ci-pr-size.yml"
   commit_message      = "Update \"CI (PR size)\" GHA workflow"
   overwrite_on_create = true
@@ -79,7 +76,6 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_schedul
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/workflows/ci-scheduled.yml"
   commit_message      = "Update \"CI (scheduled)\" GHA workflow"
   overwrite_on_create = true
@@ -91,7 +87,6 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_website
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/workflows/ci-website.yml"
   commit_message      = "Update \"CI (website)\" GHA workflow"
   overwrite_on_create = true
@@ -103,7 +98,6 @@ resource "github_repository_file" "template_repo_dot_github_workflows_ci_yml" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/workflows/ci.yml"
   commit_message      = "Update \"CI\" GHA workflow"
   overwrite_on_create = true
@@ -115,7 +109,6 @@ resource "github_repository_file" "template_repo_dot_github_workflows_publish_pa
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/workflows/publish-package.yml"
   content             = file("dot-github/workflows/publish-package.yml")
   commit_message      = "Update \"Publish package\" GHA workflow"
@@ -126,7 +119,6 @@ resource "github_repository_file" "template_repo_dot_github_workflows_publish_re
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/workflows/publish-release.yml"
   commit_message      = "Update \"Publish release\" GHA workflow"
   overwrite_on_create = true
@@ -140,7 +132,6 @@ resource "github_repository_file" "template_repo_dot_github_workflows_publish_we
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
   repository          = github_repository.template_repo.name
-  branch              = data.github_repository.template_repo.default_branch
   file                = ".github/workflows/publish-website.yml"
   commit_message      = "Update \"Publish website\" GHA workflow"
   overwrite_on_create = true
