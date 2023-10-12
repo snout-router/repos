@@ -12,6 +12,7 @@ resource "github_repository" "template_repo" {
   description  = "A template repo for Snout TypeScript projects"
   homepage_url = module.constants.primary_url
 
+  has_issues   = true
   has_projects = false
   has_wiki     = false
   is_template  = true
@@ -121,4 +122,9 @@ resource "github_repository_file" "template_repo_dot_github_workflows_publish_we
   overwrite_on_create = true
 
   content = file("dot-github/workflows/publish-website.yml")
+}
+
+module "template_repo_issue_labels" {
+  source     = "./modules/issue-labels"
+  repository = github_repository.template_repo.name
 }

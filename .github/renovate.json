@@ -1,0 +1,3 @@
+{
+  "extends": ["github>snout-router/renovate"]
+}

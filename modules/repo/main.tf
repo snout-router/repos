@@ -51,3 +51,13 @@ resource "github_branch_protection" "default_branch" {
   pattern        = data.github_repository.this.default_branch
   enforce_admins = true
 }
+
+data "github_team" "renovate_reviewers" {
+  slug = "renovate-reviewers"
+}
+
+resource "github_team_repository" "renovate_reviewers" {
+  team_id    = data.github_team.renovate_reviewers.id
+  repository = github_repository.this.name
+  permission = "maintain"
+}

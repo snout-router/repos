@@ -1,0 +1,206 @@
+name: Renovate Terraform
+
+on: status
+
+jobs:
+  collect_details:
+    name: Collect details
+    runs-on: ubuntu-latest
+
+    outputs:
+      branch: ${{ steps.event.outputs.branch }}
+      commit_author: ${{ steps.event.outputs.commit_author }}
+      commit_sha: ${{ steps.event.outputs.commit_sha }}
+      context: ${{ steps.event.outputs.context }}
+      description: ${{ steps.event.outputs.description }}
+      pr_is_draft: ${{ steps.pr.outputs.pr_is_draft }}
+      pr_labels: ${{ steps.pr.outputs.pr_labels }}
+      pr_mergeable: ${{ steps.pr.outputs.pr_mergeable }}
+      pr_number: ${{ steps.pr.outputs.pr_number }}
+      sender: ${{ steps.event.outputs.sender }}
+      state: ${{ steps.event.outputs.state }}
+      verified: ${{ steps.event.outputs.verified }}
+
+    steps:
+      - name: Obtain token
+        id: token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.RENOVATE_APP_ID }}
+          private_key: ${{ secrets.RENOVATE_APP_PK }}
+
+      - name: Event details
+        id: event
+        run: |
+          echo "branch=${{ github.event.branches[0].name }}" >> $GITHUB_OUTPUT
+          echo "commit_author=${{ github.event.commit.author.login }}" >> $GITHUB_OUTPUT
+          echo "commit_sha=${{ github.event.sha }}" >> $GITHUB_OUTPUT
+          echo "context=${{ github.event.context }}" >> $GITHUB_OUTPUT
+          echo "description=${{ github.event.description }}" >> $GITHUB_OUTPUT
+          echo "sender=${{ github.event.sender.login }}" >> $GITHUB_OUTPUT
+          echo "state=${{ github.event.state }}" >> $GITHUB_OUTPUT
+          echo "verified=${{ github.event.commit.commit.verification.verified }}" >> $GITHUB_OUTPUT
+
+      - name: Pull request details
+        if: >-
+          startsWith(steps.event.outputs.branch, 'renovate/') &&
+          steps.event.outputs.commit_author == 'snout-router-renovate[bot]' &&
+          steps.event.outputs.context == 'Terraform Cloud/snout-router/repos' &&
+          steps.event.outputs.description == 'Terraform plan has no changes' &&
+          steps.event.outputs.sender == 'terraform-cloud[bot]' &&
+          steps.event.outputs.state == 'success' &&
+          steps.event.outputs.verified == 'true'
+        id: pr
+        env:
+          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
+        run: |
+          PR=$(
+            gh pr list \
+              --repo "$GITHUB_REPOSITORY" \
+              --author app/snout-router-renovate \
+              --state OPEN \
+              --json author,isDraft,labels,mergeable,number \
+              --search '${{ steps.event.outputs.commit_sha }}'
+          )
+
+          echo "pr_is_draft=$(echo $PR | jq -r '.[0].isDraft')" >> $GITHUB_OUTPUT
+          echo "pr_labels=$(echo $PR | jq -c -r '.[0].labels | map(.name)')" >> $GITHUB_OUTPUT
+          echo "pr_mergeable=$(echo $PR | jq -r '.[0].mergeable')" >> $GITHUB_OUTPUT
+          echo "pr_number=$(echo $PR | jq -r '.[0].number')" >> $GITHUB_OUTPUT
+
+  output_details:
+    name: Output details
+    runs-on: ubuntu-latest
+
+    needs: collect_details
+
+    steps:
+      - name: Details
+        run: |
+          echo "branch=${{ needs.collect_details.outputs.branch }}"
+          echo "commit_author=${{ needs.collect_details.outputs.commit_author }}"
+          echo "commit_sha=${{ needs.collect_details.outputs.commit_sha }}"
+          echo "context=${{ needs.collect_details.outputs.context }}"
+          echo "description=${{ needs.collect_details.outputs.description }}"
+          echo "pr_is_draft=${{ needs.collect_details.outputs.pr_is_draft }}"
+          echo "pr_labels=${{ needs.collect_details.outputs.pr_labels }}"
+          echo "pr_mergeable=${{ needs.collect_details.outputs.pr_mergeable }}"
+          echo "pr_number=${{ needs.collect_details.outputs.pr_number }}"
+          echo "sender=${{ needs.collect_details.outputs.sender }}"
+          echo "state=${{ needs.collect_details.outputs.state }}"
+          echo "verified=${{ needs.collect_details.outputs.verified }}"
+
+  analyze_details:
+    name: Analyze details
+    runs-on: ubuntu-latest
+
+    needs: collect_details
+
+    outputs:
+      branch: ${{ steps.analyze_details.outputs.branch }}
+      commit_author: ${{ steps.analyze_details.outputs.commit_author }}
+      context: ${{ steps.analyze_details.outputs.context }}
+      description: ${{ steps.analyze_details.outputs.description }}
+      pr_is_draft: ${{ steps.analyze_details.outputs.pr_is_draft }}
+      pr_labels: ${{ steps.analyze_details.outputs.pr_labels }}
+      pr_mergeable: ${{ steps.analyze_details.outputs.pr_mergeable }}
+      sender: ${{ steps.analyze_details.outputs.sender }}
+      state: ${{ steps.analyze_details.outputs.state }}
+      verified: ${{ steps.analyze_details.outputs.verified }}
+      should_merge: ${{ steps.analyze_auto_merge.outputs.should_merge }}
+
+    steps:
+      - name: Analyze details
+        id: analyze_details
+        run: |
+          echo "branch=${{ startsWith(needs.collect_details.outputs.branch, 'renovate/') }}" >> $GITHUB_OUTPUT
+          echo "commit_author=${{ needs.collect_details.outputs.commit_author == 'snout-router-renovate[bot]' }}" >> $GITHUB_OUTPUT
+          echo "context=${{ needs.collect_details.outputs.context == 'Terraform Cloud/snout-router/repos' }}" >> $GITHUB_OUTPUT
+          echo "description=${{ needs.collect_details.outputs.description == 'Terraform plan has no changes' }}" >> $GITHUB_OUTPUT
+          echo "pr_is_draft=${{ needs.collect_details.outputs.pr_is_draft == 'false' }}" >> $GITHUB_OUTPUT
+          echo "pr_labels=${{ needs.collect_details.outputs.pr_labels && contains(fromJSON(needs.collect_details.outputs.pr_labels), 'renovate') && contains(fromJSON(needs.collect_details.outputs.pr_labels), 'terraform') }}" >> $GITHUB_OUTPUT
+          echo "pr_mergeable=${{ needs.collect_details.outputs.pr_mergeable == 'MERGEABLE' }}" >> $GITHUB_OUTPUT
+          echo "sender=${{ needs.collect_details.outputs.sender == 'terraform-cloud[bot]' }}" >> $GITHUB_OUTPUT
+          echo "state=${{ needs.collect_details.outputs.state == 'success' }}" >> $GITHUB_OUTPUT
+          echo "verified=${{ needs.collect_details.outputs.verified == 'true' }}" >> $GITHUB_OUTPUT
+
+      - name: Analyze auto-merge
+        id: analyze_auto_merge
+        run: |
+          echo "should_merge=${{
+            steps.analyze_details.outputs.branch == 'true' &&
+            steps.analyze_details.outputs.commit_author == 'true' &&
+            steps.analyze_details.outputs.context == 'true' &&
+            steps.analyze_details.outputs.description == 'true' &&
+            steps.analyze_details.outputs.pr_is_draft == 'true' &&
+            steps.analyze_details.outputs.pr_labels == 'true' &&
+            steps.analyze_details.outputs.pr_mergeable == 'true' &&
+            steps.analyze_details.outputs.sender == 'true' &&
+            steps.analyze_details.outputs.state == 'true' &&
+            steps.analyze_details.outputs.verified == 'true'
+          }}" >> $GITHUB_OUTPUT
+
+  analyze_auto_merge:
+    name: Renovate Terraform auto-merge analysis
+    runs-on: ubuntu-latest
+
+    needs:
+      - collect_details
+      - analyze_details
+
+    steps:
+      - name: Summarize
+        run: |
+          if [[ '${{ needs.analyze_details.outputs.should_merge }}' == 'true' ]]; then
+            echo "### Renovate Terraform auto-merge ✅" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "### Renovate Terraform auto-merge 💤" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo >> $GITHUB_STEP_SUMMARY
+
+          echo '| Field | Match | Wanted | Got |' >> $GITHUB_STEP_SUMMARY
+          echo '| :-- | :--: | :-- | :-- |' >> $GITHUB_STEP_SUMMARY
+
+          echo '| Branch | ${{ needs.analyze_details.outputs.branch == 'true' && '✅' || '❌' }} | Starts with `renovate/` | `${{ needs.collect_details.outputs.branch || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| Commit author | ${{ needs.analyze_details.outputs.commit_author == 'true'  && '✅' || '❌' }} | `snout-router-renovate[bot]` | `${{ needs.collect_details.outputs.commit_author || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| Context | ${{ needs.analyze_details.outputs.context == 'true'  && '✅' || '❌' }} | `Terraform Cloud/snout-router/repos` | `${{ needs.collect_details.outputs.context || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| Description | ${{ needs.analyze_details.outputs.description == 'true'  && '✅' || '❌' }} | `Terraform plan has no changes` | `${{ needs.collect_details.outputs.description || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| PR is draft | ${{ needs.analyze_details.outputs.pr_is_draft == 'true'  && '✅' || '❌' }} | `false` | `${{ needs.collect_details.outputs.pr_is_draft || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| PR labels | ${{ needs.analyze_details.outputs.pr_labels == 'true'  && '✅' || '❌' }} | `["renovate","terraform"]` | `${{ needs.collect_details.outputs.pr_labels || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| PR mergeable | ${{ needs.analyze_details.outputs.pr_mergeable == 'true'  && '✅' || '❌' }} | `MERGEABLE` | `${{ needs.collect_details.outputs.pr_mergeable || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| Sender | ${{ needs.analyze_details.outputs.sender == 'true'  && '✅' || '❌' }} | `terraform-cloud[bot]` | `${{ needs.collect_details.outputs.sender || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| State | ${{ needs.analyze_details.outputs.state == 'true'  && '✅' || '❌' }} | `success` | `${{ needs.collect_details.outputs.state || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+          echo '| Verified | ${{ needs.analyze_details.outputs.verified == 'true'  && '✅' || '❌' }} | `true` | `${{ needs.collect_details.outputs.verified || '<null>' }}` |' >> $GITHUB_STEP_SUMMARY
+
+  automerge:
+    name: Auto-merge
+    runs-on: ubuntu-latest
+
+    needs:
+      - collect_details
+      - analyze_details
+
+    if: needs.analyze_details.outputs.should_merge == 'true'
+
+    steps:
+      - name: Obtain token
+        id: token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.RENOVATE_APP_ID }}
+          private_key: ${{ secrets.RENOVATE_APP_PK }}
+
+      - name: Merge
+        env:
+          GITHUB_TOKEN: ${{ steps.token.outputs.token }}
+        run: |
+          gh pr comment \
+            --repo "$GITHUB_REPOSITORY" \
+            --body 'Looks like the Terraform plan has no changes, so this PR will be merged automatically.' \
+            '${{ needs.collect_details.outputs.pr_number }}'
+          gh pr merge \
+            --repo "$GITHUB_REPOSITORY" \
+            --match-head-commit '${{ needs.collect_details.outputs.commit_sha }}' \
+            --merge \
+            --delete-branch \
+            '${{ needs.collect_details.outputs.pr_number }}'
