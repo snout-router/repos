@@ -5,7 +5,7 @@ resource "github_repository" "dot_github" {
   description  = "The community health files for the Snout organization"
   homepage_url = module.constants.primary_url
 
-  has_issues   = false
+  has_issues   = true
   has_projects = false
   has_wiki     = false
 
@@ -97,7 +97,7 @@ resource "github_repository" "renovate" {
   description  = "Self-hosted Renovate for Snout"
   homepage_url = "https://github.com/snout/renovate/actions/workflows/renovate.yml"
 
-  has_issues   = false
+  has_issues   = true
   has_projects = false
   has_wiki     = false
 
