@@ -45,22 +45,6 @@ resource "github_repository_file" "template_repo_license" {
   overwrite_on_create = true
 }
 
-resource "github_repository_file" "template_repo_dot_github_dependabot_yml" {
-  commit_author       = module.constants.committer.name
-  commit_email        = module.constants.committer.email
-  repository          = github_repository.template_repo.name
-  file                = ".github/dependabot.yml"
-  commit_message      = "Update Dependabot configuration"
-  overwrite_on_create = true
-
-  content = templatefile(
-    "dot-github/dependabot.yml.tftpl",
-    {
-      has_npm_website = true
-    }
-  )
-}
-
 resource "github_repository_file" "template_repo_dot_github_workflows_ci_pr_size_yml" {
   commit_author       = module.constants.committer.name
   commit_email        = module.constants.committer.email
