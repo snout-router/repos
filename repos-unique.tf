@@ -89,3 +89,43 @@ resource "github_repository_file" "dot_github_dot_io_license" {
   commit_message      = "Update license"
   overwrite_on_create = true
 }
+
+resource "github_repository" "renovate" {
+  archive_on_destroy = true
+
+  name         = "renovate"
+  description  = "Self-hosted Renovate for Snout"
+  homepage_url = "https://github.com/snout/renovate/actions/workflows/renovate.yml"
+
+  has_issues   = false
+  has_projects = false
+  has_wiki     = false
+
+  delete_branch_on_merge = true
+  vulnerability_alerts   = true
+}
+
+data "github_repository" "renovate" {
+  depends_on = [
+    github_repository.renovate
+  ]
+
+  name = github_repository.renovate.name
+}
+
+resource "github_branch_protection" "renovate_default_branch" {
+  repository_id = github_repository.renovate.node_id
+
+  pattern        = data.github_repository.renovate.default_branch
+  enforce_admins = true
+}
+
+resource "github_repository_file" "renovate_license" {
+  commit_author       = module.constants.committer.name
+  commit_email        = module.constants.committer.email
+  repository          = github_repository.renovate.name
+  file                = "LICENSE"
+  content             = module.constants.license
+  commit_message      = "Update license"
+  overwrite_on_create = true
+}
