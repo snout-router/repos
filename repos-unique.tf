@@ -150,21 +150,6 @@ resource "github_repository_file" "renovate_license" {
   overwrite_on_create = true
 }
 
-resource "github_repository_file" "renovate_dot_github_renovate_json" {
-  count = 1
-
-  commit_author       = module.constants.committer.name
-  commit_email        = module.constants.committer.email
-  repository          = github_repository.renovate.name
-  file                = ".github/renovate.json"
-  commit_message      = "Update Renovate configuration"
-  overwrite_on_create = true
-
-  content = templatefile("dot-github/renovate.json", {
-    org = module.constants.org
-  })
-}
-
 module "renovate_labels" {
   source     = "./modules/issue-labels"
   repository = github_repository.renovate.name
