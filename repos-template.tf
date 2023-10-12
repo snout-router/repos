@@ -21,6 +21,10 @@ resource "github_repository" "template_repo" {
 }
 
 data "github_repository" "template_repo" {
+  depends_on = [
+    github_repository.template_repo
+  ]
+
   name = github_repository.template_repo.name
 }
 

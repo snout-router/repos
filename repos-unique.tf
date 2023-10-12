@@ -14,6 +14,10 @@ resource "github_repository" "dot_github" {
 }
 
 data "github_repository" "dot_github" {
+  depends_on = [
+    github_repository.dot_github
+  ]
+
   name = github_repository.dot_github.name
 }
 
@@ -63,6 +67,10 @@ resource "github_repository" "dot_github_dot_io" {
 }
 
 data "github_repository" "dot_github_dot_io" {
+  depends_on = [
+    github_repository.dot_github_dot_io
+  ]
+
   name = github_repository.dot_github_dot_io.name
 }
 
