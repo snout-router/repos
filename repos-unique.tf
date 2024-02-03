@@ -113,7 +113,7 @@ resource "github_repository" "renovate" {
 
   name         = "renovate"
   description  = "Self-hosted Renovate for Snout"
-  homepage_url = "https://github.com/snout/renovate/actions/workflows/renovate.yml"
+  homepage_url = "https://github.com/snout-router/renovate/actions/workflows/renovate.yml"
 
   has_issues   = true
   has_projects = false
