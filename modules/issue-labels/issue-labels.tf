@@ -9,6 +9,12 @@ resource "github_issue_labels" "this" {
   repository = var.repository
 
   label {
+    name        = "blocked"
+    description = "Can't be worked on until something else is done"
+    color       = "d876e3"
+  }
+
+  label {
     name        = "renovate"
     description = "Pull requests created by Renovate"
     color       = local.issue_label_color_renovate
