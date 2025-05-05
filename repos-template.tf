@@ -59,62 +59,6 @@ resource "github_repository_file" "template_dot_github_renovate_json" {
   })
 }
 
-removed {
-  from = github_repository_file.template_repo_dot_github_workflows_ci_pr_size_yml
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = github_repository_file.template_repo_dot_github_workflows_ci_scheduled_yml
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = github_repository_file.template_repo_dot_github_workflows_ci_website_yml
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = github_repository_file.template_repo_dot_github_workflows_ci_yml
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = github_repository_file.template_repo_dot_github_workflows_publish_package_yml
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = github_repository_file.template_repo_dot_github_workflows_publish_release_yml
-
-  lifecycle {
-    destroy = false
-  }
-}
-
-removed {
-  from = github_repository_file.template_repo_dot_github_workflows_publish_website_yml
-
-  lifecycle {
-    destroy = false
-  }
-}
-
 module "template_repo_issue_labels" {
   source     = "./modules/issue-labels"
   repository = github_repository.template_repo.name
